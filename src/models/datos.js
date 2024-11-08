@@ -1,5 +1,4 @@
-﻿// src/models/datos.js
-const mongoose = require('mongoose');
+﻿const mongoose = require('mongoose');
 const PizZip = require('pizzip');
 const Docxtemplater = require('docxtemplater');
 const { PDFDocument } = require('pdf-lib');
