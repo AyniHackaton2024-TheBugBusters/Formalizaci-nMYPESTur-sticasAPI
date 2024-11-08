@@ -29,9 +29,9 @@ const accountSchema = new mongoose.Schema({
         type: String,
         required: [true, 'DNI is required field!']
     },
-    clave_hash: {
+    clave_hash:{
         type: String,
-        required: true
+        required: [true, 'Password is requires field!'],
     },
     fecha_nacimiento: {
         type: Date,

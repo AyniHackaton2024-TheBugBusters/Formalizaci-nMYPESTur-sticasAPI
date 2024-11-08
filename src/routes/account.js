@@ -8,21 +8,18 @@ const router = express.Router();
 router.post('/create-account', async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
-        const hashedDNI = await bcrypt.hash(req.body.dni, salt);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
         const account = new Account({
             ...req.body,
-            dni: hashedDNI,  // Hasheamos el DNI y lo guardamos en el campo dni
-            clave_hash: hashedDNI,  // Guardamos el hash del DNI en clave_hash
+            clave_hash: hashedPassword,
             fecha_nacimiento: req.body.fecha_nacimiento // El formato debe ser YYYY-MM-DD
         });
 
         const newAccount = await account.save();
 
-        // Exclude the 'clave_hash' field from the response
-        const { clave_hash, ...accountData } = newAccount.toObject();
-
-        res.json(accountData);
+        // Incluir el campo 'clave_hash' en la respuesta
+        res.json(newAccount);
     } catch(error){
         if (error.name == 'ValidationError') {
             return res.status(400).json({message: error.message});
