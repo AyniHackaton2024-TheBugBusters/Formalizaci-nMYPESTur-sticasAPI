@@ -4,6 +4,9 @@ require('dotenv').config();
 
 // Importing routes
 const accountRoutes = require('./routes/account');
+const datosRoutes = require('./routes/datos');
+
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +20,8 @@ app.use(cors({
 }));
 
 app.use('/api/v1', accountRoutes);
+app.use('/api/v1', datosRoutes);
+
 
 // Routes
 app.get('/', (req, res) => {
