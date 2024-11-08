@@ -1,23 +1,20 @@
 ﻿const express = require('express');
 const router = express.Router();
 const path = require('path');
+const fs = require('fs');  // Importa el módulo fs
 const Datos = require('../models/datos');
 const Account = require('../models/account');
 
 // Ruta POST para recibir los datos del formulario
 router.post('/datos', async (req, res) => {
     try {
-        // Obtén el account_id del cuerpo de la solicitud
         const { account_id, ...rest } = req.body;
-
-        // Busca el documento de Account por ID
         const account = await Account.findById(account_id);
 
         if (!account) {
             return res.status(404).send('Account no encontrado');
         }
 
-        // Crea un nuevo documento de Datos usando los campos del documento de Account
         const datos = new Datos({
             account_id,
             nombres_apellidos: account.nombre_completo,
@@ -35,15 +32,18 @@ router.post('/datos', async (req, res) => {
     }
 });
 
-// Endpoint GET para obtener el archivo generado
 router.get('/download/:id', (req, res) => {
     const { id } = req.params;
-    const filePath = path.resolve(__dirname, `../output/${id}.docx`);
+    const filePath = path.resolve(__dirname, `../models/output/${id}.pdf`);
+
+    console.log(`Buscando archivo en: ${filePath}`);
 
     // Verifica si el archivo existe
     if (fs.existsSync(filePath)) {
+        console.log(`Archivo encontrado: ${filePath}`);
         res.download(filePath, `${id}.pdf`);  // Envia el archivo al cliente
     } else {
+        console.error('Archivo no encontrado');
         res.status(404).send('Archivo no encontrado');
     }
 });
