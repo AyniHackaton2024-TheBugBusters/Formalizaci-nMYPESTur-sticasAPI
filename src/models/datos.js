@@ -44,7 +44,15 @@ const datosSchema = new mongoose.Schema({
     fecha: String,
     firma: String,
     nombres_apellidos_declarante: String,
-    documento_identidad_declarante: String
+    documento_identidad_declarante: String,
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    updateAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 // Verifica si la carpeta 'output' existe, si no, créala

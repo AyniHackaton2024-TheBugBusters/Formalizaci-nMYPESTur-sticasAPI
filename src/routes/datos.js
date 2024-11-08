@@ -24,7 +24,8 @@ router.post('/datos', async (req, res) => {
             ruc: account.ruc,
             correo_electronico: account.email,
             documento_identidad_declarante: account.dni,
-            ...rest // Otros datos específicos de Datos
+            representante_legal: account.nombre_completo,
+            ...rest
         });
 
         await datos.save();
