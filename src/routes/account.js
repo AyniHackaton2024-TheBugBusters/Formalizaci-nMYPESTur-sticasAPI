@@ -5,7 +5,7 @@ const Account = require('../models/account'); // Correct import
 
 const router = express.Router();
 
-router.post('/create-account', async (req, res) => {
+router.post('/auth/create-account', async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -28,7 +28,7 @@ router.post('/create-account', async (req, res) => {
     }
 });
 
-router.post('/sign-in', async (req, res) => {
+router.post('/auth/sign-in', async (req, res) => {
     try {
         const { ruc, password } = req.body;
 
