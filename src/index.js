@@ -5,7 +5,7 @@ require('dotenv').config();
 // Importing routes
 const accountRoutes = require('./routes/account');
 const datosRoutes = require('./routes/datos');
-
+const tourisR = require('./routes/touristService');
 
 
 const app = express();
@@ -21,6 +21,7 @@ app.use(cors({
 
 app.use('/api/v1', accountRoutes);
 app.use('/api/v1', datosRoutes);
+app.use('/api/v1', tourisR);
 
 
 // Routes
