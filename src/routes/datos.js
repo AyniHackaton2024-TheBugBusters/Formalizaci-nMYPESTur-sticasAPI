@@ -4,9 +4,10 @@ const path = require('path');
 const fs = require('fs');  // Importa el módulo fs
 const Datos = require('../models/datos');
 const Account = require('../models/account');
+const authMiddleware = require("../middlewares/authMiddleware");
 
 // Ruta POST para recibir los datos del formulario
-router.post('/datos', async (req, res) => {
+router.post('/datos', authMiddleware,async (req, res) => {
     try {
         const { account_id, ...rest } = req.body;
         const account = await Account.findById(account_id);

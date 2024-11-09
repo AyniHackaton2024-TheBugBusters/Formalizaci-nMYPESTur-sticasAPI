@@ -27,7 +27,13 @@ const accountSchema = new mongoose.Schema({
     },
     dni: {
         type: String,
-        required: [true, 'DNI is required field!']
+        required: [true, 'DNI is requires field!'],
+        validate: {
+            validator: function(v) {
+                return /^\d{8}$/.test(v);
+            },
+            message: props => `${props.value} no es un DNI valido. Debe tener 8 digitos numericos.`
+        }
     },
     clave_hash:{
         type: String,
